@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lawn Maintenance Services | GreenScape Pros</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #1e2b2f;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --primary-light: #a5d6a7;
+      --secondary: #f9a825;
+      --dark: #1e2b2f;
+      --light-bg: #f4faf4;
+      --gray: #5f6c72;
+      --white: #ffffff;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-size: 1rem;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2);
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(46, 125, 50, 0.25);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--secondary);
+      outline-offset: 3px;
+    }
+
+    header {
+      background: var(--white);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 12px 0;
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      height: 52px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo i {
+      color: var(--primary);
+      font-size: 2rem;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--dark);
+      transition: color 0.2s;
+      font-size: 1.02rem;
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      border-radius: 4px;
+      background: var(--primary);
+    }
+
+    .nav-links a:not(.btn):not(.active):hover {
+      color: var(--primary);
+    }
+
+    .nav-links a:not(.btn):not(.active)::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      width: 24px;
+      height: 3px;
+      border-radius: 4px;
+      background: var(--primary-light);
+      transition: transform 0.25s ease;
+    }
+
+    .nav-links a:not(.btn):not(.active):hover::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .nav-links .btn {
+      padding: 10px 22px;
+      font-size: 0.92rem;
+      box-shadow: none;
+      background-color: var(--secondary);
+      color: #1e2b2f;
+    }
+
+    .nav-links .btn:hover {
+      background-color: #f5b32b;
+      color: #0f1a1c;
+    }
+
+    .page-hero {
+      position: relative;
+      padding: 90px 0 100px;
+      color: var(--white);
+      border-radius: 0 0 60px 60px;
+      margin-bottom: 40px;
+      overflow: hidden;
+      background: linear-gradient(105deg, #0e2b1f 0%, #1e4a2b 100%);
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/transformations/service-lawn.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    .page-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(14, 43, 31, 0.9) 0%, rgba(30, 74, 43, 0.8) 100%);
+      z-index: 1;
+    }
+
+    .page-hero .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .page-hero .breadcrumb {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .page-hero .breadcrumb a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    .page-hero .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .page-hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+      line-height: 1.15;
+    }
+
+    .page-hero h1 span {
+      color: var(--secondary);
+    }
+
+    .page-hero p {
+      font-size: 1.2rem;
+      opacity: 0.92;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .landscaping-list {
+      padding: 20px 0 80px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .service-item {
+      background: linear-gradient(135deg, #f4faf4 0%, #e8f5e9 100%);
+      border: 1px solid #c8e6c9;
+      border-radius: 16px;
+      padding: 12px 22px 12px 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .service-item:hover {
+      border-color: var(--primary);
+      transform: translateX(4px);
+      box-shadow: 0 14px 32px -12px rgba(46, 125, 50, 0.28);
+    }
+
+    .service-item-image {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 6px 14px -6px rgba(46, 125, 50, 0.4);
+    }
+
+    .service-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      transition: transform 0.4s ease;
+    }
+
+    .service-item:hover .service-item-image img {
+      transform: scale(1.06);
+    }
+
+    .service-item-image::after {
+      content: '\f06c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.85);
+      position: absolute;
+      z-index: 0;
+    }
+
+    .service-item h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      line-height: 1.3;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    .service-featured {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #f4faf4 0%, #e8f5e9 100%);
+      border: 1px solid #c8e6c9;
+      border-radius: 20px;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 32px;
+      align-items: center;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-featured:hover {
+      border-color: var(--primary);
+      box-shadow: 0 20px 45px -15px rgba(46, 125, 50, 0.25);
+    }
+
+    .service-featured-image {
+      width: 100%;
+      height: 220px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+      position: relative;
+      box-shadow: 0 12px 25px -10px rgba(46, 125, 50, 0.4);
+    }
+
+    .service-featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      transition: transform 0.4s ease;
+    }
+
+    .service-featured:hover .service-featured-image img {
+      transform: scale(1.05);
+    }
+
+    .service-featured-image::after {
+      content: '\f06c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 3rem;
+      color: rgba(255, 255, 255, 0.85);
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .service-featured-content h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+      letter-spacing: -0.3px;
+    }
+
+    .service-featured-content p {
+      color: var(--gray);
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .service-featured-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .service-featured-content .mini-head {
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .cta-strip {
+      background: linear-gradient(135deg, #1b5e20, #2e7d32);
+      border-radius: 60px;
+      padding: 65px 50px;
+      margin: 0 auto 80px;
+      max-width: 1200px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 35px;
+      color: var(--white);
+      box-shadow: 0 30px 40px -20px rgba(27, 94, 32, 0.5);
+    }
+
+    .cta-strip h2 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .cta-strip p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    .cta-strip .btn {
+      background: var(--secondary);
+      color: #1e2b2f;
+      box-shadow: 0 12px 22px -8px rgba(0, 0, 0, 0.3);
+      font-weight: 700;
+      padding: 16px 44px;
+      font-size: 1.1rem;
+    }
+
+    .cta-strip .btn:hover {
+      background: #ffb82e;
+      color: #0f1a1c;
+      transform: translateY(-3px);
+    }
+
+    footer {
+      background: #0f1f16;
+      color: #cfdcd0;
+      padding: 60px 0 30px;
+      border-radius: 40px 40px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-col h4 {
+      color: var(--white);
+      font-size: 1.2rem;
+      margin-bottom: 22px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .footer-col h4::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: var(--primary-light);
+      margin-top: 8px;
+      border-radius: 4px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      color: #b8cdb9;
+      text-decoration: none;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+
+    .footer-col p {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-col p i {
+      width: 22px;
+      color: var(--primary-light);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .social-icons a {
+      background: rgba(255, 255, 255, 0.08);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.2rem;
+      transition: 0.2s;
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.95rem;
+      color: #9bb39c;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 12px 24px -6px rgba(46, 125, 50, 0.5);
+      border: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 99;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      background: var(--primary-dark);
+      transform: translateY(-4px);
+    }
+
+    @media (max-width: 1024px) {
+      .service-featured {
+        grid-template-columns: 220px 1fr;
+        gap: 26px;
+        padding: 26px;
+      }
+      .service-featured-image {
+        height: 190px;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .page-hero h1 { font-size: 2.2rem; }
+      .page-hero { padding: 70px 0 80px; border-radius: 0 0 40px 40px; }
+      .nav-links { gap: 14px; }
+      .nav-links .btn { padding: 8px 16px; font-size: 0.8rem; }
+      .logo { font-size: 1.4rem; }
+      .logo-img { height: 42px; }
+      .cta-strip { padding: 45px 30px; text-align: center; flex-direction: column; }
+      .cta-strip h2 { font-size: 1.9rem; }
+      .service-featured { grid-template-columns: 1fr; gap: 20px; }
+      .service-featured-image { height: 220px; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-bar { flex-direction: column; gap: 12px; }
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+      .btn { padding: 12px 28px; width: 100%; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-col h4::after { margin-left: auto; margin-right: auto; }
+      .footer-col p { justify-content: center; }
+      .social-icons { justify-content: center; }
+      .services-grid { grid-template-columns: 1fr; }
+      .back-to-top { bottom: 20px; right: 20px; width: 46px; height: 46px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-bar">
+      <a href="index.html" class="logo">
+        <img src="images/transformations/logo.png" alt="GreenScape Pros Logo" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span style="display: none; align-items: center; gap: 10px;">
+          <i class="fas fa-tree"></i>
+          GreenScape <span>Pros</span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="landscaping.html">Landscaping</a></li>
+        <li><a href="lawn-services.html" class="active">Lawn</a></li>
+        <li><a href="tree-services.html">Tree</a></li>
+        <li><a href="snow-services.html">Snow</a></li>
+        <li><a href="#" class="btn"><i class="fas fa-phone-alt" style="margin-right: 6px;"></i> Free Quote</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html"><i class="fas fa-home" style="margin-right: 6px;"></i> Home</a>
+        <span style="margin: 0 8px;">/</span>
+        Lawn Maintenance
+      </div>
+      <h1>Lawn <span>Maintenance</span> Services</h1>
+      <p>Keep your lawn lush, green, and healthy year-round with our complete lawn care services — from weekly mowing to seasonal restoration.</p>
+    </div>
+  </section>
+
+  <section class="landscaping-list">
+    <div class="container">
+      <div class="services-grid">
+
+        <div class="service-featured">
+          <div class="service-featured-image">
+            <img src="images/lawn/mowing.jpg" alt="Weekly lawn mowing"
+                 onerror="this.style.display='none';">
+          </div>
+          <div class="service-featured-content">
+            <h2>Weekly Lawn Mowing</h2>
+            <p>Regular mowing is the foundation of a healthy lawn. Our team provides consistent, professional mowing on a schedule that suits your lawn's growth rate — keeping grass at the ideal height for thick, green growth while preventing weeds and disease. Every visit includes clean, even cuts with sharp blades and full cleanup of clippings.</p>
+          </div>
+        </div>
+
+        <div class="service-featured">
+          <div class="service-featured-image">
+            <img src="images/lawn/edging.jpg" alt="Lawn edging and trimming"
+                 onerror="this.style.display='none';">
+          </div>
+          <div class="service-featured-content">
+            <h2>Edging & Trimming</h2>
+            <p>Sharp, defined edges give your lawn a professionally manicured look. We edge along driveways, sidewalks, flower beds, and fences, then trim around trees, posts, and other obstacles that mowers can't reach. The result: crisp borders that make your entire property look well-maintained.</p>
+          </div>
+        </div>
+
+        <div class="service-featured">
+          <div class="service-featured-image">
+            <img src="images/lawn/fertilization.jpg" alt="Fertilization and weed control"
+                 onerror="this.style.display='none';">
+          </div>
+          <div class="service-featured-content">
+            <h2>Fertilization & Weed Control</h2>
+            <p>A healthy lawn starts with the right nutrients. We apply custom fertilization programs tailored to your soil and grass type, plus targeted weed control to eliminate unwanted growth. Our treatments are safe for kids, pets, and the environment — and produce visible, lasting results.</p>
+          </div>
+        </div>
+
+        <div class="service-featured">
+          <div class="service-featured-image">
+            <img src="images/lawn/aeration.jpg" alt="Aeration and overseeding"
+                 onerror="this.style.display='none';">
+          </div>
+          <div class="service-featured-content">
+            <h2>Aeration & Overseeding</h2>
+            <p>Compacted soil prevents air, water, and nutrients from reaching grass roots. Our core aeration service loosens the soil, and we follow up with premium overseeding to fill in thin or bare patches. This powerful combination produces a thicker, greener, more resilient lawn that thrives season after season.</p>
+          </div>
+        </div>
+
+        <div class="service-featured">
+          <div class="service-featured-image">
+            <img src="images/lawn/seasonal-cleanup.jpg" alt="Seasonal lawn cleanup"
+                 onerror="this.style.display='none';">
+          </div>
+          <div class="service-featured-content">
+            <h2>Seasonal Cleanup</h2>
+            <p>Prepare your lawn for every season with our thorough cleanup services. We remove leaves, debris, and dead growth in fall, and refresh beds and turf in spring. Regular seasonal cleanups prevent disease, discourage pests, and set your lawn up for healthy growth all year long.</p>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-item-image">
+            <img src="images/lawn/weed-control.jpg" alt="Weed control"
+                 onerror="this.style.display='none';">
+          </div>
+          <h3>Weed Control</h3>
+        </div>
+
+        <div class="service-item">
+          <div class="service-item-image">
+            <img src="images/lawn/overseeding.jpg" alt="Overseeding"
+                 onerror="this.style.display='none';">
+          </div>
+          <h3>Overseeding</h3>
+        </div>
+
+        <div class="service-item">
+          <div class="service-item-image">
+            <img src="images/lawn/leaf-removal.jpg" alt="Leaf removal"
+                 onerror="this.style.display='none';">
+          </div>
+          <h3>Leaf Removal</h3>
+        </div>
+
+        <div class="service-item">
+          <div class="service-item-image">
+            <img src="images/lawn/hedge-trimming.jpg" alt="Hedge trimming"
+                 onerror="this.style.display='none';">
+          </div>
+          <h3>Hedge Trimming</h3>
+        </div>
+
+        <div class="service-item">
+          <div class="service-item-image">
+            <img src="images/lawn/lawn-restoration.jpg" alt="Lawn restoration"
+                 onerror="this.style.display='none';">
+          </div>
+          <h3>Lawn Restoration</h3>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="cta-strip">
+      <div>
+        <h2>Ready for a healthier lawn?</h2>
+        <p>Get a free lawn care consultation and estimate — no obligation, no pressure.</p>
+      </div>
+      <a href="#" class="btn"><i class="fas fa-phone-alt" style="margin-right: 10px;"></i> Get a Free Quote</a>
+    </div>
+  </div>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="color: white; margin-bottom: 20px;">
+            <i class="fas fa-tree"></i> GreenScape <span style="color: #a5d6a7;">Pros</span>
+          </div>
+          <p style="display: flex; align-items: flex-start; gap: 12px; color: #b8cdb9;">
+            <i class="fas fa-map-pin" style="margin-top: 5px;"></i> 123 Evergreen Lane,<br>Greenville, ST 12345
+          </p>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fas fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="landscaping.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Landscaping</a></li>
+            <li><a href="lawn-services.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Lawn Maintenance</a></li>
+            <li><a href="tree-services.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Tree Removal & Trimming</a></li>
+            <li><a href="snow-services.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Snow Removal</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Home</a></li>
+            <li><a href="index.html#gallery"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Gallery</a></li>
+            <li><a href="#"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Testimonials</a></li>
+            <li><a href="#"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Free Quote</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone-alt"></i> (555) 123-4567</p>
+          <p><i class="fas fa-envelope"></i> hello@greenscapepros.com</p>
+          <p><i class="fas fa-clock"></i> Mon–Sat: 7am – 6pm</p>
+        </div>
+      </div>
+      <div class="copyright">
+        <i class="fas fa-copyright" style="margin-right: 4px;"></i> 2025 GreenScape Pros. All rights reserved. | Licensed & Insured
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    (function() {
+      const btn = document.getElementById('backToTop');
+      if (!btn) return;
+
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 500) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      });
+
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+
+</body>
+</html>

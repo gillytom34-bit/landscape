@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenScape Pros | Landscaping, Tree & Snow Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- ===== EmailJS SDK ===== -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #1e2b2f;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --primary-light: #a5d6a7;
+      --secondary: #f9a825;
+      --dark: #1e2b2f;
+      --light-bg: #f4faf4;
+      --gray: #5f6c72;
+      --white: #ffffff;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+      --ice: #4fc3f7;
+      --ice-dark: #0288d1;
+      --ice-bg: #eaf6fd;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-size: 1rem;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2);
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(46, 125, 50, 0.25);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--secondary);
+      outline-offset: 3px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--white);
+      box-shadow: none;
+      color: var(--white);
+    }
+
+    .btn-outline:hover {
+      background: var(--white);
+      color: var(--primary-dark);
+      border-color: var(--white);
+    }
+
+    header {
+      background: var(--white);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 0;
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    /* ===== LOGO WITH ICON + TEXT (ENLARGED) ===== */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.95rem;
+      box-shadow: 0 10px 22px -8px rgba(46, 125, 50, 0.5);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .logo:hover .logo-icon {
+      transform: rotate(-8deg) scale(1.05);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .logo-text .brand {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.8px;
+      line-height: 1;
+    }
+
+    .logo-text .brand span {
+      color: var(--primary);
+    }
+
+    .logo-text .tagline {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--dark);
+      transition: color 0.2s;
+      font-size: 1.05rem;
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      border-radius: 4px;
+      background: var(--primary);
+    }
+
+    .nav-links a:not(.btn):not(.active):hover {
+      color: var(--primary);
+    }
+
+    .nav-links a:not(.btn):not(.active)::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      width: 24px;
+      height: 3px;
+      border-radius: 4px;
+      background: var(--primary-light);
+      transition: transform 0.25s ease;
+    }
+
+    .nav-links a:not(.btn):not(.active):hover::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .nav-links .btn {
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      box-shadow: none;
+      background-color: var(--secondary);
+      color: #1e2b2f;
+    }
+
+    .nav-links .btn:hover {
+      background-color: #f5b32b;
+      color: #0f1a1c;
+    }
+
+    .hero {
+      position: relative;
+      padding: 110px 0 120px;
+      color: var(--white);
+      border-radius: 0 0 60px 60px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      background: linear-gradient(105deg, #0e2b1f 0%, #1e4a2b 100%);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/transformations/hero.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(14, 43, 31, 0.85) 0%, rgba(30, 74, 43, 0.75) 100%);
+      z-index: 1;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .hero-content {
+      max-width: 820px;
+      text-align: left;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-text h1 {
+      font-size: 3.4rem;
+      line-height: 1.15;
+      font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    .hero-text h1 i {
+      color: var(--secondary);
+      font-style: normal;
+    }
+
+    .hero-text h1 .ice {
+      color: var(--ice);
+      font-style: normal;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+      opacity: 0.92;
+      margin-bottom: 40px;
+      max-width: 640px;
+      text-align: left;
+      margin-left: 0;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+
+    .section-title .subhead {
+      color: var(--gray);
+      max-width: 650px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .services {
+      padding: 80px 0 90px;
+      background: var(--white);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      transition: all 0.25s ease;
+      border: 1px solid #eaf0ea;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 40px rgba(46, 125, 50, 0.12);
+      border-color: var(--primary-light);
+    }
+
+    .service-image {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+      position: relative;
+    }
+
+    .service-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover .service-image img {
+      transform: scale(1.06);
+    }
+
+    .service-content {
+      padding: 26px 24px 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    .service-icon {
+      width: 66px;
+      height: 66px;
+      background: #e8f5e9;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      transition: 0.2s;
+      margin-top: -46px;
+      position: relative;
+      z-index: 1;
+      border: 4px solid var(--white);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .service-card:hover .service-icon {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .service-card p {
+      color: var(--gray);
+      margin-bottom: 22px;
+      font-size: 0.95rem;
+      flex-grow: 1;
+    }
+
+    .service-link {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      transition: gap 0.2s;
+    }
+
+    .service-link:hover {
+      gap: 14px;
+      color: var(--primary-dark);
+    }
+
+    .service-card.featured {
+      grid-column: span 1;
+      background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+      color: var(--white);
+      border: none;
+    }
+
+    .service-card.featured .service-content {
+      padding: 34px 26px 32px;
+    }
+
+    .service-card.featured h3 {
+      color: var(--white);
+      font-size: 1.5rem;
+    }
+
+    .service-card.featured p {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .service-card.featured .service-icon {
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--secondary);
+    }
+
+    .service-card.featured:hover .service-icon {
+      background: var(--secondary);
+      color: var(--primary-dark);
+    }
+
+    .service-card.featured .service-link {
+      background: var(--secondary);
+      color: #1e2b2f;
+      padding: 11px 24px;
+      border-radius: 40px;
+      font-weight: 700;
+      box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.4);
+    }
+
+    .service-card.featured .service-link:hover {
+      background: #ffb82e;
+      color: #0f1a1c;
+      gap: 14px;
+    }
+
+    .service-card.featured.snow-card {
+      background: linear-gradient(135deg, #0a2540 0%, #1a4d6b 100%);
+    }
+
+    .service-card.featured.snow-card .service-icon {
+      color: var(--ice);
+    }
+
+    .service-card.featured.snow-card:hover .service-icon {
+      background: var(--ice);
+      color: #0a2540;
+    }
+
+    .gallery {
+      padding: 90px 0 100px;
+      background: var(--light-bg);
+      border-radius: 60px 60px 0 0;
+      margin-top: 30px;
+    }
+
+    .slideshow-wrapper { margin-bottom: 60px; }
+
+    .slideshow-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .slideshow-title h3 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .slideshow-title h3 i { color: var(--primary); }
+
+    .slideshow-title p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .slideshow {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 24px 50px -20px rgba(46, 125, 50, 0.35);
+      background: #1e2b2f;
+      aspect-ratio: 16 / 9;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      z-index: 1;
+    }
+
+    .slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      color: var(--white);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .slide-arrow:hover {
+      background: var(--secondary);
+      color: #1e2b2f;
+      border-color: var(--secondary);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .slide-arrow.prev { left: 20px; }
+    .slide-arrow.next { right: 20px; }
+
+    .slide-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 5;
+      padding: 10px 16px;
+      background: rgba(0, 30, 0, 0.45);
+      border-radius: 40px;
+      backdrop-filter: blur(8px);
+    }
+
+    .slide-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .slide-dot.active {
+      background: var(--secondary);
+      width: 28px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px var(--secondary);
+    }
+
+    .masonry-gallery {
+      column-count: 4;
+      column-gap: 18px;
+    }
+
+    .masonry-item {
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      margin-bottom: 18px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      background: #d9e8da;
+      display: block;
+    }
+
+    .masonry-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(46, 125, 50, 0.3);
+      z-index: 2;
+    }
+
+    .masonry-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+      vertical-align: middle;
+    }
+
+    .masonry-item:hover img { transform: scale(1.05); }
+
+    .masonry-item .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 30, 0, 0.8) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.3px;
+    }
+
+    .masonry-item .overlay i {
+      margin-right: 8px;
+      color: var(--secondary);
+    }
+
+    .masonry-item:hover .overlay { opacity: 1; }
+
+    .video-section { margin-top: 70px; }
+
+    .video-section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .video-section-title h3 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .video-section-title p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .video-item {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+      background: #1e2b2f;
+      aspect-ratio: 16 / 9;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .video-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 45px -12px rgba(46, 125, 50, 0.35);
+    }
+
+    .video-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #1e2b2f;
+    }
+
+    .winter-services {
+      background: linear-gradient(135deg, #eaf6fd 0%, #d6ecf7 100%);
+      padding: 80px 0 90px;
+      margin-top: 30px;
+      border-radius: 60px 60px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .winter-services::before {
+      content: '❄️';
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 8rem;
+      opacity: 0.08;
+      transform: rotate(-15deg);
+    }
+
+    .winter-services .section-title h2 {
+      color: #0d3a52;
+    }
+
+    .winter-services .section-title .subhead {
+      color: #3f6478;
+    }
+
+    .winter-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .winter-cta-box {
+      background: linear-gradient(135deg, #0a2540 0%, #1a4d6b 100%);
+      color: var(--white);
+      border-radius: 32px;
+      padding: 50px 45px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 60px -25px rgba(10, 37, 64, 0.5);
+    }
+
+    .winter-cta-box::after {
+      content: '❄';
+      position: absolute;
+      right: -20px;
+      bottom: -40px;
+      font-size: 12rem;
+      opacity: 0.08;
+      color: var(--ice);
+    }
+
+    .winter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      border: 1px solid rgba(79, 195, 247, 0.4);
+    }
+
+    .winter-badge i {
+      color: var(--ice);
+    }
+
+    .winter-cta-box h3 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .winter-cta-box h3 span {
+      color: var(--ice);
+    }
+
+    .winter-cta-box p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      margin-bottom: 30px;
+      max-width: 500px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .winter-cta-box .btn {
+      background: var(--ice);
+      color: #0a2540;
+      font-weight: 700;
+      box-shadow: 0 10px 22px -8px rgba(0, 0, 0, 0.4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .winter-cta-box .btn:hover {
+      background: #7dd4ff;
+      color: #0a2540;
+      transform: translateY(-3px);
+    }
+
+    .winter-slideshow-wrapper {
+      width: 100%;
+    }
+
+    .winter-slideshow {
+      position: relative;
+      width: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px -25px rgba(10, 37, 64, 0.5);
+      background: #0a2540;
+      aspect-ratio: 4 / 3;
+    }
+
+    .winter-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.9s ease-in-out;
+      z-index: 1;
+    }
+
+    .winter-slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .winter-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .winter-slide-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 26px 26px 24px;
+      background: linear-gradient(to top, rgba(10, 37, 64, 0.92) 0%, rgba(10, 37, 64, 0.6) 60%, transparent 100%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--white);
+      z-index: 3;
+    }
+
+    .winter-slide-icon {
+      flex-shrink: 0;
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #0288d1 0%, #4fc3f7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--white);
+      box-shadow: 0 6px 14px -6px rgba(2, 136, 209, 0.6);
+    }
+
+    .winter-slide-text h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+      color: var(--white);
+      letter-spacing: -0.2px;
+    }
+
+    .winter-slide-text p {
+      font-size: 0.92rem;
+      opacity: 0.85;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .winter-slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      color: var(--white);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .winter-slide-arrow:hover {
+      background: var(--ice);
+      color: #0a2540;
+      border-color: var(--ice);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .winter-slide-arrow.prev { left: 14px; }
+    .winter-slide-arrow.next { right: 14px; }
+
+    .winter-slide-dots {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 5;
+      padding: 8px 12px;
+      background: rgba(0, 30, 0, 0.45);
+      border-radius: 40px;
+      backdrop-filter: blur(8px);
+    }
+
+    .winter-slide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .winter-slide-dot.active {
+      background: var(--ice);
+      width: 22px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px var(--ice);
+    }
+
+    .why-us {
+      background: var(--white);
+      padding: 80px 0 100px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .benefit-item {
+      background: var(--white);
+      padding: 36px 28px;
+      border-radius: 28px;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.02);
+      border: 1px solid #deecde;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .benefit-item:hover {
+      border-color: var(--primary-light);
+      transform: scale(1.02);
+    }
+
+    .benefit-item i {
+      font-size: 2.6rem;
+      color: var(--primary);
+      margin-bottom: 22px;
+      background: #e8f5e9;
+      padding: 18px;
+      border-radius: 24px;
+      width: 80px;
+      height: 80px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .benefit-item h4 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .benefit-item p {
+      color: var(--gray);
+      font-size: 0.98rem;
+    }
+
+    .cta-banner {
+      background: linear-gradient(135deg, #1b5e20, #2e7d32);
+      border-radius: 60px;
+      padding: 65px 50px;
+      margin: 60px auto 80px;
+      max-width: 1200px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 35px;
+      color: var(--white);
+      box-shadow: 0 30px 40px -20px rgba(27, 94, 32, 0.5);
+    }
+
+    .cta-banner h2 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .cta-banner p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    .cta-banner .btn {
+      background: var(--secondary);
+      color: #1e2b2f;
+      box-shadow: 0 12px 22px -8px rgba(0, 0, 0, 0.3);
+      font-weight: 700;
+      padding: 16px 44px;
+      font-size: 1.1rem;
+    }
+
+    .cta-banner .btn:hover {
+      background: #ffb82e;
+      color: #0f1a1c;
+      transform: translateY(-3px);
+    }
+
+    footer {
+      background: #0f1f16;
+      color: #cfdcd0;
+      padding: 60px 0 30px;
+      border-radius: 40px 40px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-col h4 {
+      color: var(--white);
+      font-size: 1.2rem;
+      margin-bottom: 22px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .footer-col h4::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 3px;
+      background: var(--primary-light);
+      margin-top: 8px;
+      border-radius: 4px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 12px; }
+
+    .footer-col ul li a {
+      color: #b8cdb9;
+      text-decoration: none;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-col p {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-col p i {
+      width: 22px;
+      color: var(--primary-light);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .social-icons a {
+      background: rgba(255, 255, 255, 0.08);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.2rem;
+      transition: 0.2s;
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.95rem;
+      color: #9bb39c;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 12px 24px -6px rgba(46, 125, 50, 0.5);
+      border: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 99;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      background: var(--primary-dark);
+      transform: translateY(-4px);
+    }
+
+    .booking-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 22, 12, 0.7);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .booking-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .booking-modal {
+      background: var(--white);
+      border-radius: 28px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 92vh;
+      overflow-y: auto;
+      box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.4);
+      transform: translateY(30px) scale(0.96);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(.2,.9,.3,1.3), opacity 0.3s ease;
+      position: relative;
+    }
+
+    .booking-modal-overlay.active .booking-modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .booking-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f4faf4;
+      color: var(--dark);
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 5;
+    }
+
+    .booking-close:hover {
+      background: var(--primary);
+      color: var(--white);
+      transform: rotate(90deg);
+    }
+
+    .booking-header {
+      background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+      color: var(--white);
+      padding: 34px 34px 28px;
+      border-radius: 28px 28px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .booking-header::after {
+      content: '🌿';
+      position: absolute;
+      right: 20px;
+      bottom: -12px;
+      font-size: 5rem;
+      opacity: 0.12;
+      pointer-events: none;
+      transform: rotate(15deg);
+    }
+
+    .booking-header h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .booking-header p {
+      font-size: 1rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .booking-form {
+      padding: 30px 34px 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-group label i {
+      color: var(--primary);
+      font-size: 0.85rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1.5px solid #dbe8db;
+      background: #f9fdf9;
+      font-size: 0.98rem;
+      font-family: inherit;
+      color: var(--dark);
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.12);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 88px;
+      font-family: inherit;
+    }
+
+    .form-group select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232e7d32' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 18px;
+      padding-right: 44px;
+    }
+
+    .booking-submit {
+      background: var(--secondary);
+      color: #1e2b2f;
+      padding: 15px 32px;
+      border-radius: 50px;
+      border: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 20px -8px rgba(249, 168, 37, 0.6);
+      margin-top: 6px;
+    }
+
+    .booking-submit:hover {
+      background: #ffb82e;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px -8px rgba(249, 168, 37, 0.7);
+    }
+
+    .booking-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .booking-success {
+      display: none;
+      padding: 40px 34px 44px;
+      text-align: center;
+    }
+
+    .booking-success.show { display: block; }
+
+    .booking-success i {
+      font-size: 4rem;
+      color: var(--primary);
+      background: #e8f5e9;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      animation: successPop 0.5s cubic-bezier(.2,.9,.3,1.5);
+    }
+
+    @keyframes successPop {
+      0% { transform: scale(0.4); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .booking-success h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .booking-success p {
+      color: var(--gray);
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    .booking-success .btn {
+      background: var(--primary);
+      color: var(--white);
+      padding: 12px 32px;
+    }
+
+    .booking-success .btn:hover { background: var(--primary-dark); }
+
+    .booking-modal.is-submitted .booking-form,
+    .booking-modal.is-submitted .booking-header {
+      display: none;
+    }
+
+    @media (max-width: 1200px) {
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 1024px) {
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .masonry-gallery { column-count: 3; }
+      .winter-grid { grid-template-columns: 1fr; gap: 30px; }
+    }
+
+    @media (max-width: 800px) {
+      .hero-text h1 { font-size: 2.4rem; }
+      .hero-text p { font-size: 1.1rem; }
+      .hero { padding: 80px 0 90px; border-radius: 0 0 40px 40px; }
+      .nav-links { gap: 16px; }
+      .nav-links .btn { padding: 8px 16px; font-size: 0.82rem; }
+      .logo-icon { width: 52px; height: 52px; font-size: 1.6rem; border-radius: 14px; }
+      .logo-text .brand { font-size: 1.55rem; }
+      .logo-text .tagline { font-size: 0.72rem; letter-spacing: 1.4px; }
+      .cta-banner { padding: 45px 30px; text-align: center; flex-direction: column; }
+      .cta-banner h2 { font-size: 1.9rem; }
+      .section-title h2 { font-size: 2rem; }
+      .service-grid { grid-template-columns: 1fr; }
+      .masonry-gallery { column-count: 2; column-gap: 14px; }
+      .masonry-item { margin-bottom: 14px; }
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+      .video-section-title h3 { font-size: 1.5rem; }
+      .slideshow-title h3 { font-size: 1.5rem; }
+      .slide-arrow { width: 44px; height: 44px; font-size: 1rem; }
+      .slide-arrow.prev { left: 12px; }
+      .slide-arrow.next { right: 12px; }
+
+      .winter-services { padding: 60px 0 70px; }
+      .winter-cta-box { padding: 40px 30px; }
+      .winter-cta-box h3 { font-size: 1.7rem; }
+      .winter-cta-box p { font-size: 1rem; }
+
+      .winter-slide-dots { bottom: 12px; right: 12px; padding: 6px 10px; gap: 6px; }
+      .winter-slide-arrow { width: 38px; height: 38px; font-size: 0.85rem; }
+      .winter-slide-arrow.prev { left: 10px; }
+      .winter-slide-arrow.next { right: 10px; }
+      .winter-slide-icon { width: 44px; height: 44px; font-size: 1.15rem; }
+      .winter-slide-text h4 { font-size: 1rem; }
+      .winter-slide-text p { font-size: 0.85rem; }
+      .winter-slide-caption { padding: 18px 18px 16px; gap: 12px; }
+
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .booking-header { padding: 28px 24px 22px; }
+      .booking-header h2 { font-size: 1.4rem; }
+      .booking-form { padding: 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-bar { flex-direction: column; gap: 12px; }
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+      .hero-text h1 { font-size: 2rem; }
+      .hero-cta { flex-direction: column; align-items: flex-start; width: 100%; }
+      .btn { padding: 12px 28px; width: 100%; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-col h4::after { margin-left: auto; margin-right: auto; }
+      .footer-col p { justify-content: center; }
+      .social-icons { justify-content: center; }
+      .masonry-gallery { column-count: 1; }
+      .video-grid { grid-template-columns: 1fr; }
+      .back-to-top { bottom: 20px; right: 20px; width: 46px; height: 46px; }
+      .slide-arrow { width: 38px; height: 38px; font-size: 0.9rem; }
+      .slide-arrow.prev { left: 8px; }
+      .slide-arrow.next { right: 8px; }
+      .slide-dots { padding: 8px 12px; gap: 8px; bottom: 12px; }
+      .slide-dot { width: 8px; height: 8px; }
+      .slide-dot.active { width: 22px; }
+
+      .booking-modal-overlay { padding: 12px; }
+      .booking-modal { border-radius: 22px; }
+      .booking-close { top: 14px; right: 14px; width: 34px; height: 34px; font-size: 1rem; }
+      .booking-header { padding: 24px 20px 18px; border-radius: 22px 22px 0 0; }
+      .booking-header h2 { font-size: 1.25rem; }
+      .booking-form { padding: 20px; gap: 14px; }
+
+      .logo-icon { width: 46px; height: 46px; font-size: 1.4rem; border-radius: 12px; }
+      .logo-text .brand { font-size: 1.3rem; }
+      .logo-text .tagline { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header>
+    <div class="container nav-bar">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-tree"></i>
+        </div>
+        <div class="logo-text">
+          <div class="brand">GreenScape <span>Pros</span></div>
+          <div class="tagline">Landscaping · Tree · Snow</div>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#winter">Winter</a></li>
+        <li><a href="#why">Why Us</a></li>
+        <li><a href="#" class="btn" id="navBookBtn"><i class="fas fa-phone-alt" style="margin-right: 6px;"></i> Book Now</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Landscaping, Tree Care & <span class="ice">Snow Removal</span></h1>
+        <p>From lush lawn maintenance and expert tree work to reliable winter snow removal — we keep your outdoor space beautiful and safe in every season.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn" id="heroBookBtn"><i class="fas fa-calendar-check" style="margin-right: 8px;"></i> Book a Service</a>
+          <a href="#gallery" class="btn btn-outline">See Our Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES ========== -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Professional Services</h2>
+        <div class="subhead">Year-round care for your property — from landscaping to snow removal.</div>
+      </div>
+
+      <div class="service-grid">
+
+        <div class="service-card featured">
+          <div class="service-image">
+            <img src="images/transformations/service-landscaping.jpg" alt="Landscaping service"
+                 onerror="this.style.display='none';">
+          </div>
+          <div class="service-content">
+            <div class="service-icon"><i class="fas fa-leaf"></i></div>
+            <h3>Landscaping</h3>
+            <p>Full-service landscape design, installation, hardscaping, irrigation, and more.</p>
+            <a href="landscaping.html" class="service-link">
+              View All Services <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="service-card featured">
+          <div class="service-image">
+            <img src="images/transformations/service-lawn.jpg" alt="Lawn maintenance service"
+                 onerror="this.style.display='none';">
+          </div>
+          <div class="service-content">
+            <div class="service-icon"><i class="fas fa-seedling"></i></div>
+            <h3>Lawn Maintenance</h3>
+            <p>Weekly mowing, edging, fertilization, and weed control for a healthy lawn.</p>
+            <a href="lawn-services.html" class="service-link">
+              View All Services <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="service-card featured">
+          <div class="service-image">
+            <img src="images/transformations/service-tree.jpg" alt="Tree removal and trimming service"
+                 onerror="this.style.display='none';">
+          </div>
+          <div class="service-content">
+            <div class="service-icon"><i class="fas fa-tree"></i></div>
+            <h3>Tree Removal & Trimming</h3>
+            <p>Safe removal of hazardous trees, plus expert pruning and trimming.</p>
+            <a href="tree-services.html" class="service-link">
+              View All Services <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="service-card featured snow-card">
+          <div class="service-image">
+            <img src="images/transformations/service-snow.jpg" alt="Snow removal service"
+                 onerror="this.style.display='none';">
+          </div>
+          <div class="service-content">
+            <div class="service-icon"><i class="fas fa-snowflake"></i></div>
+            <h3>Snow Removal</h3>
+            <p>Reliable snow plowing, shoveling, and ice management for any property.</p>
+            <a href="snow-services.html" class="service-link">
+              View All Services <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GALLERY ========== -->
+  <section id="gallery" class="gallery">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Recent Work</h2>
+        <div class="subhead">Browse through a selection of our favorite projects — from complete yard makeovers to precision tree work.</div>
+      </div>
+
+      <div class="slideshow-wrapper">
+        <div class="slideshow-title">
+          <h3><i class="fas fa-images"></i> Featured Projects Showcase</h3>
+          <p>Take a look at some of our recent transformations.</p>
+        </div>
+
+        <div class="slideshow" id="slideshow">
+          <div class="slide active">
+            <img src="images/transformations/slide-01.jpg" alt="Featured project 1" loading="lazy">
+          </div>
+          <div class="slide">
+            <img src="images/transformations/slide-02.jpg" alt="Featured project 2" loading="lazy">
+          </div>
+          <div class="slide">
+            <img src="images/transformations/slide-03.jpg" alt="Featured project 3" loading="lazy">
+          </div>
+          <div class="slide">
+            <img src="images/transformations/slide-04.jpg" alt="Featured project 4" loading="lazy">
+          </div>
+          <div class="slide">
+            <img src="images/transformations/slide-05.jpg" alt="Featured project 5" loading="lazy">
+          </div>
+          <div class="slide">
+            <img src="images/transformations/slide-06.jpg" alt="Featured project 6" loading="lazy">
+          </div>
+          <div class="slide">
+            <img src="images/transformations/slide-07.jpg" alt="Featured project 7" loading="lazy">
+          </div>
+          <div class="slide">
+            <img src="images/transformations/slide-08.jpg" alt="Featured project 8" loading="lazy">
+          </div>
+          <div class="slide">
+            <img src="images/transformations/slide-09.jpg" alt="Featured project 9" loading="lazy">
+          </div>
+          <div class="slide">
+            <img src="images/transformations/slide-10.jpg" alt="Featured project 10" loading="lazy">
+          </div>
+
+          <button class="slide-arrow prev" id="slidePrev" aria-label="Previous slide">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="slide-arrow next" id="slideNext" aria-label="Next slide">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+
+          <div class="slide-dots" id="slideDots"></div>
+        </div>
+      </div>
+
+      <div class="masonry-gallery">
+        <div class="masonry-item">
+          <img src="images/transformations/image-01.jpg" alt="Landscaping project 1" loading="lazy">
+          <div class="overlay"><i class="fas fa-leaf"></i> Featured Project</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-02.jpg" alt="Landscaping project 2" loading="lazy">
+          <div class="overlay"><i class="fas fa-leaf"></i> Landscaping</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-03.jpg" alt="Lawn care project 3" loading="lazy">
+          <div class="overlay"><i class="fas fa-seedling"></i> Lawn Care</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-04.jpg" alt="Garden design project 4" loading="lazy">
+          <div class="overlay"><i class="fas fa-leaf"></i> Garden Design</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-05.jpg" alt="Tree removal project 5" loading="lazy">
+          <div class="overlay"><i class="fas fa-tree"></i> Tree Removal</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-06.jpg" alt="Tree trimming project 6" loading="lazy">
+          <div class="overlay"><i class="fas fa-cut"></i> Tree Trimming</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-07.jpg" alt="Yard makeover project 7" loading="lazy">
+          <div class="overlay"><i class="fas fa-home"></i> Yard Makeover</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-08.jpg" alt="Patio and hardscape project 8" loading="lazy">
+          <div class="overlay"><i class="fas fa-archway"></i> Patio & Hardscape</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-09.jpg" alt="Mulching project 9" loading="lazy">
+          <div class="overlay"><i class="fas fa-layer-group"></i> Mulching</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-10.jpg" alt="Planting project 10" loading="lazy">
+          <div class="overlay"><i class="fas fa-spa"></i> Planting</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-11.jpg" alt="Lawn restoration project 11" loading="lazy">
+          <div class="overlay"><i class="fas fa-seedling"></i> Lawn Restoration</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-12.jpg" alt="Tree care project 12" loading="lazy">
+          <div class="overlay"><i class="fas fa-tree"></i> Tree Care</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-13.jpg" alt="Garden cleanup project 13" loading="lazy">
+          <div class="overlay"><i class="fas fa-broom"></i> Garden Cleanup</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-14.jpg" alt="Hedge trimming project 14" loading="lazy">
+          <div class="overlay"><i class="fas fa-cut"></i> Hedge Trimming</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-15.jpg" alt="Seasonal work project 15" loading="lazy">
+          <div class="overlay"><i class="fas fa-snowflake"></i> Seasonal Work</div>
+        </div>
+        <div class="masonry-item">
+          <img src="images/transformations/image-16.jpg" alt="Complete renovation project 16" loading="lazy">
+          <div class="overlay"><i class="fas fa-star"></i> Complete Renovation</div>
+        </div>
+      </div>
+
+      <div class="video-section">
+        <div class="video-section-title">
+          <h3><i class="fas fa-video" style="color: var(--primary); margin-right: 10px;"></i> Lawn Mowing in Action</h3>
+          <p>See our team at work — professional, efficient, and reliable.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-item">
+            <video autoplay muted loop playsinline preload="auto">
+              <source src="videos/lawn-mowing-01.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay muted loop playsinline preload="auto">
+              <source src="videos/lawn-mowing-02.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay muted loop playsinline preload="auto">
+              <source src="videos/lawn-mowing-03.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== WINTER SERVICES ========== -->
+  <section id="winter" class="winter-services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Winter Services</h2>
+        <div class="subhead">Don't let snow and ice slow you down. We're ready when the weather isn't.</div>
+      </div>
+
+      <div class="winter-grid">
+        <div class="winter-cta-box">
+          <div class="winter-badge">
+            <i class="fas fa-snowflake"></i> Seasonal Service
+          </div>
+          <h3>Ready for <span>Snow & Ice?</span> We Are.</h3>
+          <p>From the first snowfall to the last thaw, our team keeps your driveways, walkways, and parking areas clear and safe. Book a seasonal contract and never worry about shoveling again.</p>
+          <a href="snow-services.html" class="btn">
+            <i class="fas fa-arrow-right" style="margin-right: 8px;"></i> Explore Snow Services
+          </a>
+        </div>
+
+        <div class="winter-slideshow-wrapper">
+          <div class="winter-slideshow" id="winterSlideshow">
+
+            <div class="winter-slide active">
+              <img src="images/snow/residential-plowing.jpg" alt="24/7 Snow Plowing" loading="lazy">
+              <div class="winter-slide-caption">
+                <div class="winter-slide-icon"><i class="fas fa-truck"></i></div>
+                <div class="winter-slide-text">
+                  <h4>24/7 Snow Plowing</h4>
+                  <p>Fast response any time, day or night.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="winter-slide">
+              <img src="images/snow/driveway-clearing.jpg" alt="Driveways and Walkways" loading="lazy">
+              <div class="winter-slide-caption">
+                <div class="winter-slide-icon"><i class="fas fa-snowman"></i></div>
+                <div class="winter-slide-text">
+                  <h4>Driveways & Walkways</h4>
+                  <p>Cleared and de-iced for safe access.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="winter-slide">
+              <img src="images/snow/salting-icing.jpg" alt="Ice Management" loading="lazy">
+              <div class="winter-slide-caption">
+                <div class="winter-slide-icon"><i class="fas fa-snowflake"></i></div>
+                <div class="winter-slide-text">
+                  <h4>Ice Management</h4>
+                  <p>Premium salting and pre-treatment.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="winter-slide">
+              <img src="images/snow/commercial-plowing.jpg" alt="Commercial Contracts" loading="lazy">
+              <div class="winter-slide-caption">
+                <div class="winter-slide-icon"><i class="fas fa-building"></i></div>
+                <div class="winter-slide-text">
+                  <h4>Commercial Contracts</h4>
+                  <p>Priority response for businesses.</p>
+                </div>
+              </div>
+            </div>
+
+            <button class="winter-slide-arrow prev" id="winterPrev" aria-label="Previous slide">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="winter-slide-arrow next" id="winterNext" aria-label="Next slide">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <div class="winter-slide-dots" id="winterDots"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHY CHOOSE US ========== -->
+  <section id="why" class="why-us">
+    <div class="container">
+      <div class="section-title">
+        <h2>Why Choose GreenScape Pros</h2>
+        <div class="subhead">We combine expert knowledge, reliable service, and a passion for the outdoors.</div>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-item"><i class="fas fa-shield-alt"></i><h4>Fully Insured</h4><p>Complete liability and workers' comp coverage for your peace of mind.</p></div>
+        <div class="benefit-item"><i class="fas fa-clock"></i><h4>On-Time Service</h4><p>We show up when we say we will — and finish the job right.</p></div>
+        <div class="benefit-item"><i class="fas fa-tools"></i><h4>Modern Equipment</h4><p>Professional-grade tools for clean, efficient, and safe results.</p></div>
+        <div class="benefit-item"><i class="fas fa-hand-holding-heart"></i><h4>Satisfaction Guarantee</h4><p>We're not happy until you love your landscape. 100% guarantee.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA BANNER ========== -->
+  <div class="container">
+    <div class="cta-banner">
+      <div>
+        <h2>Ready for year-round property care?</h2>
+        <p>From landscaping to snow removal — get a free, no-obligation estimate today.</p>
+      </div>
+      <a href="#" class="btn" id="ctaBookBtn"><i class="fas fa-phone-alt" style="margin-right: 10px;"></i> Book Now</a>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="color: white; margin-bottom: 20px;">
+            <i class="fas fa-tree"></i> GreenScape <span style="color: #a5d6a7;">Pros</span>
+          </div>
+          <p style="display: flex; align-items: flex-start; gap: 12px; color: #b8cdb9;">
+            <i class="fas fa-map-pin" style="margin-top: 5px;"></i> 123 Evergreen Lane,<br>Greenville, ST 12345
+          </p>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fas fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="landscaping.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Landscaping</a></li>
+            <li><a href="lawn-services.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Lawn Maintenance</a></li>
+            <li><a href="tree-services.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Tree Removal & Trimming</a></li>
+            <li><a href="snow-services.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Snow Removal</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Home</a></li>
+            <li><a href="#gallery"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Gallery</a></li>
+            <li><a href="#"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Testimonials</a></li>
+            <li><a href="#" id="footerBookBtn"><i class="fas fa-angle-right" style="font-size: 0.8rem;"></i> Book Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone-alt"></i> (555) 123-4567</p>
+          <p><i class="fas fa-envelope"></i> hello@greenscapepros.com</p>
+          <p><i class="fas fa-clock"></i> Mon–Sat: 7am – 6pm</p>
+        </div>
+      </div>
+      <div class="copyright">
+        <i class="fas fa-copyright" style="margin-right: 4px;"></i> 2025 GreenScape Pros. All rights reserved. | Licensed & Insured
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ========== BOOKING MODAL ========== -->
+  <div class="booking-modal-overlay" id="bookingOverlay" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+    <div class="booking-modal" id="bookingModal">
+
+      <button class="booking-close" id="bookingClose" aria-label="Close booking form">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="booking-header">
+        <h2 id="bookingTitle">Book a Service</h2>
+        <p>Fill out the form and we'll get back to you within 24 hours.</p>
+      </div>
+
+      <form class="booking-form" id="bookingForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bookName"><i class="fas fa-user"></i> Full Name</label>
+            <input type="text" id="bookName" name="from_name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="bookPhone"><i class="fas fa-phone-alt"></i> Phone Number</label>
+            <input type="tel" id="bookPhone" name="phone" required placeholder="(555) 123-4567">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bookEmail"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="bookEmail" name="reply_to" required placeholder="john@example.com">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bookService"><i class="fas fa-tools"></i> Service Needed</label>
+            <select id="bookService" name="service" required>
+              <option value="">Choose a service...</option>
+              <option value="Landscaping">Landscaping</option>
+              <option value="Lawn Maintenance">Lawn Maintenance</option>
+              <option value="Tree Removal & Trimming">Tree Removal & Trimming</option>
+              <option value="Snow Removal">Snow Removal</option>
+              <option value="Irrigation & Hardscaping">Irrigation & Hardscaping</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="bookDate"><i class="fas fa-calendar-alt"></i> Preferred Date</label>
+            <input type="date" id="bookDate" name="preferred_date" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bookMessage"><i class="fas fa-comment-dots"></i> Project Details (optional)</label>
+          <textarea id="bookMessage" name="message" placeholder="Tell us about your project, property size, or any specific needs..."></textarea>
+        </div>
+
+        <input type="hidden" name="submitted_at" id="submittedAt" value="">
+
+        <button type="submit" class="booking-submit" id="bookingSubmitBtn">
+          <i class="fas fa-paper-plane"></i> Submit Booking Request
+        </button>
+      </form>
+
+      <div class="booking-success" id="bookingSuccess">
+        <i class="fas fa-check"></i>
+        <h3>Thank You!</h3>
+        <p>Your booking request has been received. We'll get back to you within 24 hours.</p>
+        <button class="btn" id="bookingSuccessClose">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /* ===== BACK TO TOP ===== */
+    (function() {
+      const btn = document.getElementById('backToTop');
+      if (!btn) return;
+
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 500) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      });
+
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+
+    /* ===== MAIN SLIDESHOW ===== */
+    (function() {
+      const slideshow = document.getElementById('slideshow');
+      if (!slideshow) return;
+
+      const slides = slideshow.querySelectorAll('.slide');
+      const prevBtn = document.getElementById('slidePrev');
+      const nextBtn = document.getElementById('slideNext');
+      const dotsContainer = document.getElementById('slideDots');
+
+      if (slides.length === 0) return;
+
+      let currentIndex = 0;
+      let autoPlayTimer = null;
+      const AUTO_PLAY_INTERVAL = 4000;
+
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.classList.add('slide-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = dotsContainer.querySelectorAll('.slide-dot');
+
+      function goToSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+
+        slides[currentIndex].classList.remove('active');
+        dots[currentIndex].classList.remove('active');
+
+        currentIndex = index;
+
+        slides[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+      }
+
+      function nextSlide() { goToSlide(currentIndex + 1); }
+      function prevSlide() { goToSlide(currentIndex - 1); }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayTimer = setInterval(nextSlide, AUTO_PLAY_INTERVAL);
+      }
+
+      function stopAutoPlay() {
+        if (autoPlayTimer) {
+          clearInterval(autoPlayTimer);
+          autoPlayTimer = null;
+        }
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); startAutoPlay(); });
+      if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); startAutoPlay(); });
+
+      slideshow.addEventListener('mouseenter', stopAutoPlay);
+      slideshow.addEventListener('mouseleave', startAutoPlay);
+
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      slideshow.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      slideshow.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchEndX - touchStartX;
+        const threshold = 50;
+        if (diff > threshold) { prevSlide(); startAutoPlay(); }
+        else if (diff < -threshold) { nextSlide(); startAutoPlay(); }
+      }, { passive: true });
+
+      startAutoPlay();
+    })();
+
+    /* ===== WINTER SLIDESHOW ===== */
+    (function() {
+      const slideshow = document.getElementById('winterSlideshow');
+      if (!slideshow) return;
+
+      const slides = slideshow.querySelectorAll('.winter-slide');
+      const prevBtn = document.getElementById('winterPrev');
+      const nextBtn = document.getElementById('winterNext');
+      const dotsContainer = document.getElementById('winterDots');
+
+      if (slides.length === 0) return;
+
+      let currentIndex = 0;
+      let autoPlayTimer = null;
+      const AUTO_PLAY_INTERVAL = 4000;
+
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.classList.add('winter-slide-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.setAttribute('aria-label', 'Go to winter slide ' + (i + 1));
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = dotsContainer.querySelectorAll('.winter-slide-dot');
+
+      function goToSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+
+        slides[currentIndex].classList.remove('active');
+        dots[currentIndex].classList.remove('active');
+
+        currentIndex = index;
+
+        slides[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+      }
+
+      function nextSlide() { goToSlide(currentIndex + 1); }
+      function prevSlide() { goToSlide(currentIndex - 1); }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayTimer = setInterval(nextSlide, AUTO_PLAY_INTERVAL);
+      }
+
+      function stopAutoPlay() {
+        if (autoPlayTimer) {
+          clearInterval(autoPlayTimer);
+          autoPlayTimer = null;
+        }
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); startAutoPlay(); });
+      if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); startAutoPlay(); });
+
+      slideshow.addEventListener('mouseenter', stopAutoPlay);
+      slideshow.addEventListener('mouseleave', startAutoPlay);
+
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      slideshow.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      slideshow.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchEndX - touchStartX;
+        const threshold = 50;
+        if (diff > threshold) { prevSlide(); startAutoPlay(); }
+        else if (diff < -threshold) { nextSlide(); startAutoPlay(); }
+      }, { passive: true });
+
+      startAutoPlay();
+    })();
+
+    /* ===== BOOKING MODAL WITH EMAILJS ===== */
+    (function() {
+      const EMAILJS_PUBLIC_KEY  = "M_Tp1l3i6NzDkcooT";
+      const EMAILJS_SERVICE_ID  = "service_lw7i59v";
+      const EMAILJS_TEMPLATE_ID = "template_3wt475c";
+
+      if (typeof emailjs !== 'undefined') {
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      }
+
+      const overlay = document.getElementById('bookingOverlay');
+      const modal = document.getElementById('bookingModal');
+      const closeBtn = document.getElementById('bookingClose');
+      const successCloseBtn = document.getElementById('bookingSuccessClose');
+      const form = document.getElementById('bookingForm');
+      const success = document.getElementById('bookingSuccess');
+      const submitBtn = document.getElementById('bookingSubmitBtn');
+      const submittedAtField = document.getElementById('submittedAt');
+
+      const triggers = [
+        document.getElementById('navBookBtn'),
+        document.getElementById('heroBookBtn'),
+        document.getElementById('ctaBookBtn'),
+        document.getElementById('footerBookBtn')
+      ];
+
+      function openModal() {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+          const firstField = document.getElementById('bookName');
+          if (firstField) firstField.focus();
+        }, 300);
+      }
+
+      function closeModal() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          modal.classList.remove('is-submitted');
+          success.classList.remove('show');
+          form.reset();
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Booking Request';
+          }
+        }, 350);
+      }
+
+      triggers.forEach(btn => {
+        if (btn) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal();
+          });
+        }
+      });
+
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (successCloseBtn) successCloseBtn.addEventListener('click', closeModal);
+
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeModal();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          closeModal();
+        }
+      });
+
+      const dateInput = document.getElementById('bookDate');
+      if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('bookName').value.trim();
+        const phone = document.getElementById('bookPhone').value.trim();
+        const email = document.getElementById('bookEmail').value.trim();
+        const service = document.getElementById('bookService').value;
+        const date = document.getElementById('bookDate').value;
+
+        if (!name || !phone || !email || !service || !date) {
+          alert('Please fill in all required fields.');
+          return;
+        }
+
+        if (submittedAtField) {
+          submittedAtField.value = new Date().toLocaleString();
+        }
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        }
+
+        try {
+          const response = await emailjs.sendForm(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            form,
+            { publicKey: EMAILJS_PUBLIC_KEY }
+          );
+
+          console.log('✅ Email sent successfully:', response.status, response.text);
+          modal.classList.add('is-submitted');
+          success.classList.add('show');
+
+        } catch (error) {
+          console.error('❌ Email send failed:', error);
+          alert('Sorry, something went wrong. Please try again or call us at (555) 123-4567.\n\nError: ' + (error.text || error.message || 'Unknown error'));
+
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Booking Request';
+          }
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
